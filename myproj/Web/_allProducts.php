@@ -1,8 +1,8 @@
 <?php
 shuffle($prodcat_shuffle);
+shuffle($product_shuffle);
 $name = array_map(function ($pro){ return $pro['name']; }, $prodcat_shuffle);
 $unique = array_unique($name);
-
 ?>
 
 <section class="allproducts">
@@ -24,13 +24,14 @@ $unique = array_unique($name);
 
         <div class="grid">
             <?php array_map(function ($item){ ?>
-            <div class="grid-item border <?php echo $item['name']; ?> ">
+            <div class="grid-item border <?php echo $item['title']; ?> ">
                 <div class="item py-2" style="width: 200px; height:350px">
                     <div class="product font-raleway">
-
-                        <a href="#"><img src="<?php echo $item['image']??"./assets/products/iphone13pro.jpg" ?>" alt="product1" class="img-fluid"></a>
+                        <?php $productID=$item['ID'] ?>
+                   
+                        <a href="product.php?productID=<?php echo $productID ?>"><img src="<?php echo $item['image']??"./assets/products/iphone13pro.jpg" ?>" alt="product1" class="img-fluid"></a>
                         <div class="text-center">
-                            <h6><?php echo $item['title']??"Unknown" ?></h6>
+                            <a href="product.php?productID=<?php echo $productID ?>"><h6><?php echo $item['title']??"Unknown" ?></h6></a>
 
                             <div class="rating font-size-12">
                                 <span><i class="fas fa-star text-warning"></i></span>
@@ -51,7 +52,7 @@ $unique = array_unique($name);
                     </div>
                 </div>
             </div>
-            <?php }, $prodcat_shuffle) ?>
+            <?php }, $product_shuffle) ?>
 
 
 

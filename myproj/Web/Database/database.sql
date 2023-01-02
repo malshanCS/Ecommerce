@@ -62,35 +62,61 @@ create table belongs(
 );
 # ---------------------------------------------------------------------------------------------
 
-create table variation(
-    var_id int not null auto_increment,
-    PID int,
-    name varchar(50),
-    primary key (var_id)
+# create table variation(
+#     var_id int not null auto_increment,
+#     PID int,
+#     name varchar(50),
+#     primary key (var_id)
+# );
+#
+# drop table variation, variant_option;
+# create table variant_option(
+#     opt_id int not null auto_increment,
+#     var_id int,
+#     name varchar(50),
+#     primary key (opt_id)
+# );
+#
+#
+# create table combination(
+#     sku varchar(50),
+#     opt_id int,
+#     description varchar(50),
+#     primary key (sku,opt_id)
+# );
+
+# ---------------------------------------------------------------------------------------------------------
+create table variant (
+    variant_id int auto_increment primary key,
+    variant varchar(50)
 );
 
-
-create table variant_option(
-    opt_id int not null auto_increment,
-    var_id int,
-    name varchar(50),
-    primary key (opt_id)
+create table variant_value(
+    value_id int auto_increment primary key,
+    variant_id int ,
+    value_name varchar(50)
 );
 
-
-create table combination(
+create table product_Variant(
+    product_Variants_id int  auto_increment primary key,
+    product_id int,
+    productVariantName varchar(50),
     sku varchar(50),
-    opt_id int,
-    description varchar(50),
-    primary key (sku,opt_id)
+    extra_price numeric(8,2)
 );
 
+ALTER TABLE product_Variant RENAME COLUMN extra_price TO unit_price;
+
+CREATE TABLE product_combination (
+    product_detail_id   int AUTO_INCREMENT PRIMARY KEY,
+    product_variants_id int,
+    value_id            int
+);
 
 create table stock(
     sku varchar(50) unique,
     initial_stock int,
     avai_stock int,
-    unit_price numeric(8,2),
     primary key (sku)
 );
 
@@ -98,7 +124,7 @@ create table cart_item(
     item_id int not null auto_increment,
     sku varchar(50),
     cart_id int,
-    units int,
+    quantity int,
     primary key (item_id)
 );
 
@@ -107,7 +133,9 @@ create table cart_item(
 create table cart(
     cart_id int not null auto_increment,
     user_id int,
+    total numeric(10,2),
     state varchar(50),
+    created timestamp,
     primary key (cart_id)
 
 );
@@ -216,24 +244,31 @@ ALTER TABLE belongs
 ADD FOREIGN KEY (cat_id) REFERENCES category(cat_id);
 ALTER TABLE belongs
 ADD FOREIGN KEY (sub_cat_id) REFERENCES subcategory(sub_cat_id);
-ALTER TABLE variation
-ADD FOREIGN KEY (PID) REFERENCES product(ID);
-alter table variant_option add column pid int;
 
-ALTER TABLE variant_option
-ADD FOREIGN KEY (var_id) REFERENCES variation(var_id);
-ALTER TABLE variant_option
-ADD FOREIGN KEY (pid) REFERENCES product(id);
-ALTER TABLE combination
+
+ALTER TABLE variant_value
+ADD FOREIGN KEY (variant_id) REFERENCES variant(variant_id) ;
+
+ALTER TABLE product_Variant
+ADD FOREIGN KEY (product_id) REFERENCES product(id);
+
+ALTER TABLE product_Variant
 ADD FOREIGN KEY (sku) REFERENCES stock(sku);
-ALTER TABLE combination
-ADD FOREIGN KEY (opt_id) REFERENCES variant_option(opt_id);
+
+ALTER TABLE product_combination
+ADD FOREIGN KEY (product_variants_id) REFERENCES product_Variant(product_Variants_id);
+
+ALTER TABLE product_combination
+ADD FOREIGN KEY (value_id) REFERENCES variant_value(value_id);
+
 ALTER TABLE cart_item
 ADD FOREIGN KEY (sku) REFERENCES stock(sku);
 ALTER TABLE cart_item
 ADD FOREIGN KEY (cart_id) REFERENCES cart(cart_id);
 ALTER TABLE cart
 ADD FOREIGN KEY (user_id) REFERENCES user(id);
+
+
 ALTER TABLE order_details
 ADD FOREIGN KEY (user_id) REFERENCES registered_customer(ID);
 ALTER TABLE order_details
@@ -284,7 +319,7 @@ set name = 'Mobile-Phones'
 where name = 'Mobile Phones';
 
 create view prodCat as
-select p.title,p.base,p.image, s.name
+select p.ID, p.title,p.base,p.image, s.name
 from (product p join belongs b on p.ID = b.product_id) join category s on b.cat_id = s.cat_id;
 
 drop view prodCat;

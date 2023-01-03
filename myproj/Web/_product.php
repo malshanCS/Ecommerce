@@ -1,17 +1,21 @@
 <?php
-  $productID = $_GET['productID'];
-  foreach ($product_shuffle as $i) {
-    if(intval($i['ID'])==$productID){
-        $item=$i;
-    }
-    } 
-    $product_shuffle ?>
+
+//shuffle($product_shuffle);
+    $prod_id = $_GET['prod_id']??1;
+
+    foreach ($product->getData() as $item):
+        if($item['ID'] == $prod_id):
+
+?>
+
+
+
 
 <section class="product py-3">
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <img src="<?php echo $item['image']??"./assets/products/iphone13pro.jpg" ?>"  alt="product" class="img-fluid">
+                <img src="<?php echo $item['image']??"./assets/products/iphone13mini.jpg"; ?>" alt="product" class="img-fluid">
                 <div class="form-row pt-4 font-size-16 font-rubik">
                     <div class="col">
                         <button type="submit" class="btn btn-danger form-control">Buy now</button>
@@ -23,9 +27,9 @@
             </div>
 
             <div class="col-sm-6 py-5">
-                <h5 class="font-baloo font-size-20"><?php echo $item['title']?></h5>
-                <small>by <?php echo $item['brand']?></small>
-                <!-- <div class="d-flex">
+                <h5 class="font-baloo font-size-20"><?php echo $item['title']??"Iphone 13 mini"; ?></h5>
+                <small>by <?php echo $item['brand']??"Apple"; ?></small>
+                <div class="d-flex">
                     <div class="rating text-warning font-size-12">
                         <span><i class="fas fa-star"></i></span>
                         <span><i class="fas fa-star"></i></span>
@@ -34,24 +38,24 @@
                         <span><i class="far fa-star"></i></span>
                     </div>
                     <a href="#" class="px-2 font-rale font-size-14">20,534 ratings | 1000+ answered questions</a>
-                </div> -->
+                </div>
 
                 <hr class="m-0">
 
                 <!---    product price       -->
                 <table class="my-3">
-                    <!-- <tr class="font-rale font-size-14">
-                        <td>Previous Price:</td>
-                        <td><strike>$162.00</strike></td>
-                    </tr> -->
                     <tr class="font-rale font-size-14">
-                        <td>Price:</td>
-                        <td class="font-size-20 text-danger">$<span><?php echo $item['base']?></span><small class="text-dark font-size-12">&nbsp;&nbsp;*Terms and Condition apply</small></td>
+                        <td>Previous Price:</td>
+                        <td><strike>RS.<?php echo ($item['base'] + ($item['base'] * 0.1 + 100.00))??0.00; ?></strike></td>
                     </tr>
-                    <!-- <tr class="font-rale font-size-14">
-                        <td>You Save:</td>
-                        <td><span class="font-size-16 text-danger">$10.00</span></td>
-                    </tr> -->
+                    <tr class="font-rale font-size-14">
+                        <td>New Price:</td>
+                        <td class="font-size-20 text-danger">RS.<span><?php echo $item['base']??0.00; ?></span><small class="text-dark font-size-12">&nbsp;&nbsp;*Terms and Condition apply</small></td>
+                    </tr>
+                    <tr class="font-rale font-size-14">
+                        <td>You Save:.</td>
+                        <td><span class="font-size-16 text-danger">RS.<?php echo ($item['base']*0.1 + 100)??0.00; ?></span></td>
+                    </tr>
                 </table>
 
                 <!--    #policy -->
@@ -67,7 +71,7 @@
                             <div class="font-size-20 my-2 color-second">
                                 <span class="fas fa-truck  border p-3 rounded-pill"></span>
                             </div>
-                            <a href="#" class="font-rale font-size-12">Daily Tuition <br>Deliverd</a>
+                            <a href="#" class="font-rale font-size-12">ShopHere <br>Deliverd</a>
                         </div>
                         <div class="return text-center mr-5">
                             <div class="font-size-20 my-2 color-second">
@@ -147,3 +151,11 @@
         </div>
     </div>
 </section>
+
+
+
+<?php
+
+    endif;
+    endforeach;
+?>

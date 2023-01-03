@@ -283,10 +283,8 @@ update category
 set name = 'Mobile-Phones'
 where name = 'Mobile Phones';
 
+
+DROP VIEW IF EXISTS prodCat;
 create view prodCat as
-select p.title,p.base,p.image, s.name
+select p.title,p.base,p.image, s.name,p.ID
 from (product p join belongs b on p.ID = b.product_id) join category s on b.cat_id = s.cat_id;
-
-drop view prodCat;
-
-select * from prodCat;

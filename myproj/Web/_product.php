@@ -116,44 +116,6 @@ foreach ($product_variants as $item) {
                         </td>
                         <td>
                             <!-- dynamic product price section -->
-
-
-
-
-
-
-
-
-
-
-
-
-                <div>
-                    <!-- form.php -->
-<form method="POST" action="print.php">
-  <label for="quantity">Enter quantity:</label><br>
-  <input type="number" id="quantity" name="quantity"><br>
-  <input type="submit" value="Submit">
-</form>
-
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <div>
                     <table class="my-3">
                         <!-- <tr class="font-rale font-size-14">

@@ -38,6 +38,16 @@ class Product
         return $resultArray;
     }
 
+    public function getAvailableQuantity($sku){
+        $result = $this->db->con->query("SELECT avai_stock FROM stock WHERE sku ='{$sku}'");
+
+        $resultArray = array();
+
+        while ($item = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+            $resultArray[] = $item;
+        }
+        return $resultArray;
+    }
     
 
     

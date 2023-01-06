@@ -1,5 +1,33 @@
 <?php
-  $productID = $_GET['productID'];
+// get pid from url
+$productID = $_GET['productID'];
+
+//use Database\DBController;
+
+use Database\DBController;
+use Database\product;
+
+$db = new DBController();
+
+$product = new Product($db);
+$product_variants = array_slice($product->getProductVarients('product_variant',$productID),0);
+
+//print_r($product_variants);
+
+
+// $i=0;
+$Varientnames=array();
+foreach ($product_variants as $item) {
+    $Varientnames[] = $item['productVariantName'];
+    //  i+=1;
+}$product_variants;
+
+//print_r($Varientnames);
+//print_r($product_variants);
+
+
+
+  
   foreach ($product_shuffle as $i) {
     if(intval($i['ID'])==$productID){
         $item=$i;
@@ -38,22 +66,89 @@
 
                 <hr class="m-0">
 
-                <!---    product price       -->
-                <table class="my-3">
-                    <!-- <tr class="font-rale font-size-14">
-                        <td>Previous Price:</td>
-                        <td><strike>$162.00</strike></td>
-                    </tr> -->
-                    <tr class="font-rale font-size-14">
-                        <td>Price:</td>
-                        <td class="font-size-20 text-danger">$<span><?php echo $item['base']?></span><small class="text-dark font-size-12">&nbsp;&nbsp;*Terms and Condition apply</small></td>
-                    </tr>
-                    <!-- <tr class="font-rale font-size-14">
-                        <td>You Save:</td>
-                        <td><span class="font-size-16 text-danger">$10.00</span></td>
-                    </tr> -->
-                </table>
 
+                <div>
+                <table>
+                    <tr>
+                        <td>
+                            <!-- Product varient selection -->
+                <div>
+                    <form method="POST" action="" id="variant_form">
+                        <label for="product_variant">Select Product Variant:</label><br>
+                        <select name="product_variant" id="product_variant" onchange="document.getElementById('variant_form').submit()">
+                        <?php
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $selected_variant = $_POST['product_variant'];
+                            } else {
+                                $selected_variant = $Varientnames[0];
+                            }
+                            
+                            foreach ($Varientnames as $variant) {
+                                if ($variant == $selected_variant) {
+                                echo "<option value='$variant' selected>$variant</option>";
+                                } else {
+                                echo "<option value='$variant'>$variant</option>";
+                                }
+                            }
+                        ?>
+                        </select>
+                    </form> 
+
+                    <?php
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                            echo "You selected: $selected_variant";
+                            $selected_item=null;
+                            foreach ($product_variants as $item) {
+                                if($item['productVariantName']== $selected_variant){
+                                    $selected_item=$item;
+                                }
+                            }$product_variants;
+                        }
+                    ?>
+
+                </div>
+
+                        </td>
+                        <td>
+                            <!-- dynamic product price section -->
+                <div>
+                    <table class="my-3">
+                        <!-- <tr class="font-rale font-size-14">
+                            <td>Previous Price:</td>
+                            <td><strike>$162.00</strike></td>
+                        </tr> -->
+                        <tr class="font-rale font-size-14">
+                            <td>Price:</td>
+                            <td class="font-size-20 text-danger">$<span><?php echo $selected_item['unit_price']?></span><small class="text-dark font-size-12">&nbsp;&nbsp;*Terms and Condition apply</small></td>
+                        </tr>
+                        <!-- <tr class="font-rale font-size-14">
+                            <td>You Save:</td>
+                            <td><span class="font-size-16 text-danger">$10.00</span></td>
+                        </tr> -->
+                    </table>
+                </div>
+                        </td>
+                    </tr>
+                    
+                    </table>
+                </div>
+                
+
+                <div class="col-6">
+                        <!-- product qty section -->
+                        <div class="qty d-flex">
+                            <h6 class="font-baloo">Qty</h6>
+                            <div class="px-4 d-flex font-rale">
+                                <button class="qty-up border bg-light" data-id="pro1"><i class="fas fa-angle-up"></i></button>
+                                <input type="text" data-id="pro1" class="qty_input border px-2 w-50 bg-light" disabled value="1" placeholder="1" max="10">
+                                <button data-id="pro1" class="qty-down border bg-light"><i class="fas fa-angle-down"></i></button>
+                            </div>
+                        </div>
+                        <!-- !product qty section -->
+                </div>
+
+
+                
                 <!--    #policy -->
                 <div id="policy">
                     <div class="d-flex">
@@ -77,6 +172,8 @@
                         </div>
                     </div>
                 </div>
+
+                
                 <!--    !policy -->
                 <hr>
 
@@ -91,32 +188,23 @@
                 <div class="row">
                     <div class="col-6">
                         <!-- color -->
-                        <div class="color my-3">
+                        <!-- <div class="color my-3">
                             <div class="d-flex justify-content-between">
                                 <h6 class="font-baloo">Color:</h6>
                                 <div class="p-2 color-yellow-bg rounded-circle"><button class="btn font-size-14"></button></div>
                                 <div class="p-2 color-primary-bg rounded-circle"><button class="btn font-size-14"></button></div>
                                 <div class="p-2 color-second-bg rounded-circle"><button class="btn font-size-14"></button></div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- !color -->
                     </div>
-                    <div class="col-6">
-                        <!-- product qty section -->
-                        <div class="qty d-flex">
-                            <h6 class="font-baloo">Qty</h6>
-                            <div class="px-4 d-flex font-rale">
-                                <button class="qty-up border bg-light" data-id="pro1"><i class="fas fa-angle-up"></i></button>
-                                <input type="text" data-id="pro1" class="qty_input border px-2 w-50 bg-light" disabled value="1" placeholder="1">
-                                <button data-id="pro1" class="qty-down border bg-light"><i class="fas fa-angle-down"></i></button>
-                            </div>
-                        </div>
-                        <!-- !product qty section -->
-                    </div>
+                    
                 </div>
 
+                
+
                 <!-- size -->
-                <div class="size my-3">
+                <!-- <div class="size my-3">
                     <h6 class="font-baloo">Size :</h6>
                     <div class="d-flex justify-content-between w-75">
                         <div class="font-rubik border p-2">
@@ -129,7 +217,7 @@
                             <button class="btn p-0 font-size-14">8GB RAM</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- !size -->
 
 

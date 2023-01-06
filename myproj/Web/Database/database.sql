@@ -279,9 +279,6 @@ INSERT INTO belongs values (8,2,6);
 DELETE from belongs where product_id=5;
 DELETE from belongs where product_id=6;
 
-update category
-set name = 'Mobile-Phones'
-where name = 'Mobile Phones';
 
 
 DROP VIEW IF EXISTS prodCat;

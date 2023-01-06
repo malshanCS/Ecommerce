@@ -25,4 +25,22 @@ class Product
 
         return $resultArray;
     }
+
+    public function getProductVarients($table,$PID){
+        $result = $this->db->con->query("SELECT * FROM {$table} AS pv WHERE pv.product_id = {$PID} AND pv.sku IN (SELECT sku FROM stock WHERE avai_stock>0 ) ");
+
+        $resultArray = array();
+
+        while ($item = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+            $resultArray[] = $item;
+        }
+        //print_r($resultArray);
+        return $resultArray;
+    }
+
+    
+
+    
 }
+
+

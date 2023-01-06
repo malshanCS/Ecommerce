@@ -40,14 +40,15 @@ foreach ($product_variants as $item) {
         <div class="row">
             <div class="col-sm-6">
                 <img src="<?php echo $item['image']??"./assets/products/iphone13pro.jpg" ?>"  alt="product" class="img-fluid">
-                <div class="form-row pt-4 font-size-16 font-rubik">
+                <!-- <div class="form-row pt-4 font-size-16 font-rubik">
                     <div class="col">
                         <button type="submit" class="btn btn-danger form-control">Buy now</button>
                     </div>
+
                     <div class="col">
                         <button type="submit" class="btn btn-warning form-control">Add to Cart</button>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="col-sm-6 py-5">
@@ -95,6 +96,10 @@ foreach ($product_variants as $item) {
                     </form> 
 
                     <?php
+                        if (isset($_POST['quantity'])) {
+                            $selected_variant=$_POST['v'];
+                       }
+                       
                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             echo "You selected: $selected_variant";
                             $selected_item=null;
@@ -104,6 +109,9 @@ foreach ($product_variants as $item) {
                                 }
                             }$product_variants;
                         }
+
+                        
+                    
                         $temp = $product->getAvailableQuantity($selected_item['sku']);
                         $itemsInStock_SelectedVarient = $temp[0]['avai_stock'];
                         
@@ -139,18 +147,65 @@ foreach ($product_variants as $item) {
                 </div>
                 
 
-                <div class="col-6">
-                        <!-- product qty section -->
-                        <div class="qty d-flex">
-                            <h6 class="font-baloo">Qty</h6>
-                            <div class="px-4 d-flex font-rale">
-                                <button class="qty-up border bg-light" data-id="pro1"><i class="fas fa-angle-up"></i></button>
-                                <input type="text" data-id="pro1" class="qty_input border px-2 w-50 bg-light" disabled value="1" placeholder="1" max=<?php echo $itemsInStock_SelectedVarient ?>>
-                                <button data-id="pro1" class="qty-down border bg-light"><i class="fas fa-angle-down"></i></button>
-                            </div>
-                        </div>
-                        <!-- !product qty section -->
+
+
+
+
+
+
+                <div>
+                
+                
+<form method="post">
+  <label for="quantity">Enter quantity:</label><br>
+  <input type="text" id="quantity" name="quantity" value=1 ><br>
+  <input type="hidden" name="v" value="<?php echo $selected_variant; ?>">
+  <input type="submit" value="Submit">
+</form> 
+
+<?php
+
+                    if (isset($_POST['quantity'])) {
+                         $quantity = $_POST['quantity'];
+                         if($quantity>$itemsInStock_SelectedVarient){
+                            echo "SORRY! Only ",$itemsInStock_SelectedVarient," items in stock!";
+                            $quantity=1;
+                         }
+                    else{
+                        echo "Quantity : " ,$quantity;
+                    }
+                        
+                    }
+                    else{
+                        $quantity=1;
+                        echo "Quantity : " , $quantity;
+                    }
+
+                    
+                
+                    
+                ?>
+
                 </div>
+                <a href="addToCart.php?sku=<?php echo  $selected_item['sku']?> & n=<?php echo $quantity?>"">Add To Cart</a>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                 
@@ -240,3 +295,4 @@ foreach ($product_variants as $item) {
         </div>
     </div>
 </section>
+

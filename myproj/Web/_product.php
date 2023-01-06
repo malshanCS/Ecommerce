@@ -100,7 +100,6 @@ foreach ($product_variants as $item) {
                             $selected_variant=$_POST['v'];
                        }
                        
-                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             echo "You selected: $selected_variant";
                             $selected_item=null;
                             foreach ($product_variants as $item) {
@@ -108,7 +107,7 @@ foreach ($product_variants as $item) {
                                     $selected_item=$item;
                                 }
                             }$product_variants;
-                        }
+            
 
                         
                     

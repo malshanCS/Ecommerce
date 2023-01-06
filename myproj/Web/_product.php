@@ -104,13 +104,56 @@ foreach ($product_variants as $item) {
                                 }
                             }$product_variants;
                         }
+                        $temp = $product->getAvailableQuantity($selected_item['sku']);
+                        $itemsInStock_SelectedVarient = $temp[0]['avai_stock'];
+                        
+                        
                     ?>
 
                 </div>
+                        <?php echo 'IN STOCK: ',$itemsInStock_SelectedVarient?>
 
                         </td>
                         <td>
                             <!-- dynamic product price section -->
+
+
+
+
+
+
+
+
+
+
+
+
+                <div>
+                    <!-- form.php -->
+<form method="POST" action="print.php">
+  <label for="quantity">Enter quantity:</label><br>
+  <input type="number" id="quantity" name="quantity"><br>
+  <input type="submit" value="Submit">
+</form>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div>
                     <table class="my-3">
                         <!-- <tr class="font-rale font-size-14">
@@ -140,7 +183,7 @@ foreach ($product_variants as $item) {
                             <h6 class="font-baloo">Qty</h6>
                             <div class="px-4 d-flex font-rale">
                                 <button class="qty-up border bg-light" data-id="pro1"><i class="fas fa-angle-up"></i></button>
-                                <input type="text" data-id="pro1" class="qty_input border px-2 w-50 bg-light" disabled value="1" placeholder="1" max="10">
+                                <input type="text" data-id="pro1" class="qty_input border px-2 w-50 bg-light" disabled value="1" placeholder="1" max=<?php echo $itemsInStock_SelectedVarient ?>>
                                 <button data-id="pro1" class="qty-down border bg-light"><i class="fas fa-angle-down"></i></button>
                             </div>
                         </div>

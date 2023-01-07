@@ -15,4 +15,13 @@ $product_shuffle = $product->getData();
 
 $prodcat_shuffle = $product->getData('prodcat');
 
+
+$product_variants = array_slice($product->getProductVarients('product_variant',2),0);
+
+//print_r($product->getProductVarients('product_variant',2))
+
+//print_r($product_shuffle);
+?>
+
 //print_r($product->getData());
+

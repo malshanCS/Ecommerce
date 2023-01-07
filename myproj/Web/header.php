@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopHere</title>
+    <title >ShopHere</title>
 
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -39,7 +39,6 @@
             <p class="font-raleway font-size-12 text-black-50 m-0">This is an intellectual property of Malshan Keerthichandra</p>
             <div class="font-raleway font-size-14">
                 <a href="#" class="px-3 border-right border-left text-dark">Login</a>
-                <a href="#" class="px-3 border-right text-dark">wishlist (0)</a>
 
             </div>
         </div>
@@ -47,7 +46,7 @@
 
         <!-- primary navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark color-second-bg">
-            <a class="navbar-brand" href="#">ShopHere</a>
+            <a class="navbar-brand" href="index.php">ShopHere</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -60,7 +59,7 @@
                         <a class="nav-link" href="#">Category<i class="fas fa-chevron-down"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Products<i class="fas fa-chevron-down"></i></a>
+                        <a class="nav-link" href="#allprods">Products</i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Blog</a>
@@ -71,7 +70,7 @@
                 </ul>
 
                 <form action="#" class="font-size-14 font-raleway">
-                    <a href="cart.html" class="py-2 rounded-pill bg-dark">
+                    <a href="cart.php" class="py-2 rounded-pill bg-dark">
                         <span class="font-size-16 px-2 text-white"><i class="fas fa-shopping-cart"></i></span>
                         <span class="px-3 py-2 rounded-pill text-dark bg-light">0</span>
                     </a>

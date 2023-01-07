@@ -12,7 +12,7 @@
             <div class="item py-2">
                 <div class="product font-raleway">
 
-                    <a href="#"><img src="<?php echo $item['image']??"./assets/products/iphone13pro.jpg"; ?>" alt="product1" class="img-fluid"></a>
+                    <a href="<?php printf('%s?prod_id=%s', 'product.php', $item['ID']) ?>"><img src="<?php echo $item['image']??"./assets/products/iphone13pro.jpg"; ?>" alt="product1" class="img-fluid"></a>
                     <div class="text-center">
                         <h6><?php echo $item['title']??"Unknown"; ?></h6>
 

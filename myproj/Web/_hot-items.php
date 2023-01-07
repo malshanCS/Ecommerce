@@ -12,9 +12,9 @@
             <div class="item py-2">
                 <div class="product font-raleway">
 
-                <a href="product.php?productID=<?php echo $item['ID'] ?>"><img src="<?php echo $item['image']??"./assets/products/iphone13pro.jpg" ?>" alt="product1" class="img-fluid"></a>
+                    <a href="<?php printf('%s?prod_id=%s', 'product.php', $item['ID']) ?>"><img src="<?php echo $item['image']??"./assets/products/iphone13pro.jpg"; ?>" alt="product1" class="img-fluid"></a>
                     <div class="text-center">
-                    <a href="product.php?productID=<?php echo $item['ID'] ?>"><h6><?php echo $item['title']??"Unknown"; ?></h6></a>
+                        <h6><?php echo $item['title']??"Unknown"; ?></h6>
 
                         <div class="rating font-size-12">
                             <span><i class="fas fa-star text-warning"></i></span>

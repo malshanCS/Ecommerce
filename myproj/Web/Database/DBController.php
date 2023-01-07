@@ -7,7 +7,7 @@ class DBController
     protected $host = 'localhost';
     protected $user = 'root';
     protected $port = '3308';
-    protected $password = '1234567';
+    protected $password = '';
     protected $database = 'final';
 
 

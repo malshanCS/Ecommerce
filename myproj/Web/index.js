@@ -47,7 +47,7 @@ $(document).ready(function(){
 
     // click on qty up button
     $qty_up.click(function(e){
-        let $input = $(`.qty_input[data-id='${$(this).data("id")}']`);
+         let $input = $(`.qty_input[data-id='${"pro"+$(this).data("id").substring(2)}']`);
         if($input.val() >= 1 && $input.val() <= 9){
             $input.val(function(i, oldval){
                 return ++oldval;
@@ -66,4 +66,60 @@ $(document).ready(function(){
     });
 
 
+    $(".remove-btn").on("click",function () {
+        var id = $(this).attr("id");
+        $.ajax({
+            type:"post",
+            url:'_cartFunctions.php',
+            data: {
+                id:id,
+                action:"remove"
+            },
+            success:function (data){
+                // alert(data);
+                location.reload();
+            },
+            error:function (data){
+                // alert(data);
+            }
+        });
+    });
+
+    $(".qty-down").on("click",function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type:"post",
+            url:'_cartFunctions.php',
+            data: {
+                id:id,
+                action:"decrement"
+            },
+            success:function (data){
+                // alert(data);
+                location.reload();
+            },
+            error:function (data){
+                // alert(data);
+            }
+        });
+    });
+
+    $(".qty-up").on("click",function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type:"post",
+            url:'_cartFunctions.php',
+            data: {
+                id:id,
+                action:"increment"
+            },
+            success:function (data){
+                // alert(data);
+                location.reload();
+            },
+            error:function (data){
+                // alert(data);
+            }
+        });
+    });
 });
